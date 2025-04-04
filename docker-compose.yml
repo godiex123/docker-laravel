@@ -30,7 +30,6 @@ services:
     container_name: ${PROJECT_NAME}_composer
     volumes:
       - ${SRC_DIR}:/var/www/html
-      - ~/.composer:/root/.composer # Aquí persistimos los paquetes globales
     working_dir: /var/www/html
     entrypoint: ["sleep", "infinity"]
     networks:
