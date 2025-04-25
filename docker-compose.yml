@@ -1,5 +1,3 @@
-
-
 services:
   nginx:
     build: ./nginx
@@ -24,6 +22,22 @@ services:
     user: "${UID}:${GID}"
     expose:
       - "9000"
+
+  node:
+    image: node-18-alpine # Usa la imagen oficial de Node.js Alpine
+    container_name: ${PROJECT_NAME}_node
+    volumes:
+      - ${SRC_DIR}/app
+    working_dir: /app
+    command: ["sleep", "infinity"]
+    networks:
+      - laravel_net
+    user: "${UID}:${GID}"
+    depends_on:
+      - composer
+      - app
+    expose:
+      - "3000"
 
   composer:
     build: ./composer
@@ -52,4 +66,3 @@ services:
 networks:
   laravel_net:
     driver: bridge
-
